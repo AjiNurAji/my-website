@@ -11,7 +11,7 @@ export const MenuMobileTrigger = ({ open, setOpen }: Props) => {
     <div className="mx-auto px-3 sm:hidden flex justify-center items-center transition-[bottom] ease-linear duration-300 fixed z-40 w-full max-sm:group-data-[state=open]:bottom-20 bottom-1">
       <Button
         variant="ghost"
-        className="rounded-full"
+        className="rounded-full group-data-[state=open]:animate-bounce"
         size="icon"
         onClick={() => setOpen(open === "" ? "open" : "")}
       >
