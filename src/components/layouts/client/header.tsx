@@ -1,6 +1,12 @@
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
-import { CatIcon } from "lucide-react";
+import {
+  CatIcon,
+  ContactRoundIcon,
+  FolderClosedIcon,
+  HouseIcon,
+  UserRoundIcon,
+} from "lucide-react";
 import { ThemeToggle } from "~/components/theme/theme-toggle";
 import { useState } from "react";
 import { MenuMobileTrigger } from "./nav-menu/menu-mobile-trigger";
@@ -24,24 +30,28 @@ export const Header = () => {
               variant="link"
               className="cursor-pointer hover:no-underline"
             >
+              <HouseIcon />
               Home
             </Button>
             <Button
               variant="link"
               className="cursor-pointer text-muted-foreground hover:text-primary hover:no-underline"
             >
+              <FolderClosedIcon />
               Projects
             </Button>
             <Button
               variant="link"
               className="cursor-pointer text-muted-foreground hover:text-primary hover:no-underline"
             >
+              <UserRoundIcon />
               About
             </Button>
             <Button
               variant="link"
               className="cursor-pointer text-muted-foreground hover:text-primary hover:no-underline"
             >
+              <ContactRoundIcon />
               Contact
             </Button>
           </nav>
