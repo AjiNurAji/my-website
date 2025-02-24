@@ -8,9 +8,39 @@ import {
   UserRoundIcon,
 } from "lucide-react";
 import { ThemeToggle } from "~/components/theme/theme-toggle";
-import { useState } from "react";
+import React, { useState } from "react";
 import { MenuMobileTrigger } from "./nav-menu/menu-mobile-trigger";
 import { MobileMenu } from "./nav-menu/mobile-menu";
+import { DesktopMenu } from './nav-menu/desktop-menu';
+
+export interface Navlink {
+  title: string;
+  url: string;
+  icon?: React.ReactNode;
+}
+
+const navLink: Navlink[] = [
+  {
+    title: "Home",
+    url: "/",
+    icon: <HouseIcon />,
+  },
+  {
+    title: "About",
+    url: "/about",
+    icon: <UserRoundIcon />
+  },
+  {
+    title: "Projects",
+    url: "/projects",
+    icon: <FolderClosedIcon />
+  },
+  {
+    title: "Contact",
+    url: "/contact",
+    icon: <ContactRoundIcon />
+  },
+]
 
 export const Header = () => {
   const [open, setOpen] = useState<string>("");
@@ -25,38 +55,9 @@ export const Header = () => {
             <CatIcon />
           </a>
 
-          <nav className="sm:block hidden">
-            <Button
-              variant="link"
-              className="cursor-pointer hover:no-underline"
-            >
-              <HouseIcon />
-              Home
-            </Button>
-            <Button
-              variant="link"
-              className="cursor-pointer text-muted-foreground hover:text-primary hover:no-underline"
-            >
-              <FolderClosedIcon />
-              Projects
-            </Button>
-            <Button
-              variant="link"
-              className="cursor-pointer text-muted-foreground hover:text-primary hover:no-underline"
-            >
-              <UserRoundIcon />
-              About
-            </Button>
-            <Button
-              variant="link"
-              className="cursor-pointer text-muted-foreground hover:text-primary hover:no-underline"
-            >
-              <ContactRoundIcon />
-              Contact
-            </Button>
-          </nav>
+          <DesktopMenu navLink={navLink} />
 
-          <MobileMenu />
+          <MobileMenu navLink={navLink} />
 
           <div>
             <ThemeToggle />

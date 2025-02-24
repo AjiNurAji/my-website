@@ -1,77 +1,38 @@
-import {
-  ContactRoundIcon,
-  FolderClosedIcon,
-  HouseIcon,
-  UserRoundIcon,
-} from "lucide-react";
-import { Button } from "~/components/ui/button";
+import { Button, buttonVariants } from "~/components/ui/button";
 import {
   TooltipProvider,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import { Navlink } from "../header";
+import { Link } from "@tanstack/react-router";
+import { cn } from "~/lib/utils";
 
-export const MobileMenu = () => {
+export const MobileMenu = ({ navLink }: { navLink: Navlink[] }) => {
   return (
     <div className="sm:hidden flex justify-center items-center gap-x-2">
       <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="cursor-pointer rounded-full flex flex-col gap-0"
-            >
-              <HouseIcon />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <span className="text-xs">Home</span>
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="cursor-pointer text-muted-foreground hover:text-primary rounded-full flex flex-col gap-0"
-            >
-              <UserRoundIcon />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-              <span className="text-xs">About</span>
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="cursor-pointer text-muted-foreground hover:text-primary rounded-full flex flex-col gap-0"
-            >
-              <FolderClosedIcon />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-              <span className="text-xs">Projects</span>
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="cursor-pointer text-muted-foreground hover:text-primary rounded-full flex flex-col gap-0"
-            >
-              <ContactRoundIcon />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-              <span className="text-xs">Contact</span>
-          </TooltipContent>
-        </Tooltip>
+        {navLink?.map((item, i) => (
+          <Tooltip key={i}>
+            <TooltipTrigger asChild>
+              <Button variant="outline" size="icon" asChild>
+                <Link
+                  to={item.url}
+                  className={cn(
+                    "cursor-pointer !rounded-full flex flex-col gap-0",
+                    buttonVariants({ variant: "outline", size: "icon" }),
+                  )}
+                >
+                  {item.icon && item.icon}
+                </Link>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <span className="text-xs">{item.title}</span>
+            </TooltipContent>
+          </Tooltip>
+        ))}
       </TooltipProvider>
     </div>
   );
