@@ -1,5 +1,5 @@
 import { Button, buttonVariants } from "~/components/ui/button";
-import { Navlink } from "../header";
+import { checkIsActive, Navlink } from "../header";
 import { Link } from "@tanstack/react-router";
 import { cn } from "~/lib/utils";
 
@@ -10,9 +10,11 @@ export const DesktopMenu = ({ navLink }: { navLink: Navlink[] }) => {
         <Button variant="link"  className="cursor-pointer hover:!no-underline" asChild key={i}>
           <Link
             to={item.url}
+            disabled={item.disabled}
             className={cn(
-              "cursor-pointer hover:!no-underline",
-              buttonVariants({ variant: "link" })
+              "cursor-pointer hover:!no-underline hover:!text-primary",
+              buttonVariants({ variant: "link" }),
+              checkIsActive(item.url) ? "" : "!text-muted-foreground"
             )}
           >
             {item.icon && item.icon}

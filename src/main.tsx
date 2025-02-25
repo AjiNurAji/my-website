@@ -14,6 +14,7 @@ import "./index.css"
 
 // generated route
 import { routeTree } from "./routeTree.gen";
+import { LoaderCircleIcon } from "lucide-react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -72,6 +73,11 @@ const queryClient = new QueryClient({
 const router = createRouter({
   routeTree,
   context: { queryClient },
+  defaultPendingComponent: () => (
+    <div className="min-h-screen h-full flex justify-center items-center">
+      <LoaderCircleIcon className="animate-spin size-6" />
+    </div>
+  ),
   defaultPreload: "intent",
   defaultPreloadStaleTime: 0,
 });

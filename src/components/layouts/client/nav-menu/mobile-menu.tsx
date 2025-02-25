@@ -5,7 +5,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-import { Navlink } from "../header";
+import { checkIsActive, Navlink } from "../header";
 import { Link } from "@tanstack/react-router";
 import { cn } from "~/lib/utils";
 
@@ -19,9 +19,11 @@ export const MobileMenu = ({ navLink }: { navLink: Navlink[] }) => {
               <Button variant="outline" size="icon" asChild>
                 <Link
                   to={item.url}
+                  disabled={item.disabled}
                   className={cn(
                     "cursor-pointer !rounded-full flex flex-col gap-0",
                     buttonVariants({ variant: "outline", size: "icon" }),
+                    checkIsActive(item.url) ? "" : "text-muted-foreground"
                   )}
                 >
                   {item.icon && item.icon}

@@ -11,12 +11,14 @@ import { ThemeToggle } from "~/components/theme/theme-toggle";
 import React, { useState } from "react";
 import { MenuMobileTrigger } from "./nav-menu/menu-mobile-trigger";
 import { MobileMenu } from "./nav-menu/mobile-menu";
-import { DesktopMenu } from './nav-menu/desktop-menu';
+import { DesktopMenu } from "./nav-menu/desktop-menu";
+import { useLocation } from "@tanstack/react-router";
 
 export interface Navlink {
   title: string;
   url: string;
   icon?: React.ReactNode;
+  disabled?: boolean;
 }
 
 const navLink: Navlink[] = [
@@ -28,19 +30,27 @@ const navLink: Navlink[] = [
   {
     title: "About",
     url: "/about",
-    icon: <UserRoundIcon />
+    icon: <UserRoundIcon />,
   },
   {
     title: "Projects",
     url: "/projects",
-    icon: <FolderClosedIcon />
+    icon: <FolderClosedIcon />,
   },
   {
     title: "Contact",
     url: "/contact",
-    icon: <ContactRoundIcon />
+    icon: <ContactRoundIcon />,
   },
-]
+];
+
+export const checkIsActive = (path: string) => {
+  const { pathname } = useLocation();
+
+  if (path === pathname) return true;
+
+  return false;
+};
 
 export const Header = () => {
   const [open, setOpen] = useState<string>("");
