@@ -49,7 +49,7 @@ const Guest = () => {
           </Button>
           <Button asChild variant="secondary" size="icon">
             <a
-              href="https://insragram.com/ajnrji_"
+              href="https://instagram.com/ajnrji_"
               target="_blank"
             >
               <InstagramIcon className="h-4 w-4" />
