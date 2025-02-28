@@ -28,17 +28,17 @@ const navLink: Navlink[] = [
   },
   {
     title: "About",
-    url: "/about",
+    url: "/503",
     icon: <UserRoundIcon />,
   },
   {
     title: "Projects",
-    url: "/projects",
+    url: "/503",
     icon: <FolderClosedIcon />,
   },
   {
     title: "Contact",
-    url: "/contact",
+    url: "/503",
     icon: <ContactRoundIcon />,
   },
 ];
