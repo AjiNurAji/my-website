@@ -1,9 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
+import MaintenanceError from '~/features/errors/maintenance-error'
 
 export const Route = createLazyFileRoute('/__guest/contact/')({
-  component: RouteComponent,
+  component: () => <MaintenanceError page={true} />,
 })
-
-function RouteComponent() {
-  return <div>Hello "/__guest/contact/"!</div>
-}

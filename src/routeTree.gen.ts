@@ -18,7 +18,6 @@ import { Route as guestIndexImport } from './routes/__guest/index'
 
 // Create Virtual Routes
 
-const errors503LazyImport = createFileRoute('/(errors)/503')()
 const errors500LazyImport = createFileRoute('/(errors)/500')()
 const guestProjectsIndexLazyImport = createFileRoute('/__guest/projects/')()
 const guestContactIndexLazyImport = createFileRoute('/__guest/contact/')()
@@ -36,14 +35,6 @@ const guestIndexRoute = guestIndexImport.update({
   path: '/',
   getParentRoute: () => guestRouteRoute,
 } as any)
-
-const errors503LazyRoute = errors503LazyImport
-  .update({
-    id: '/(errors)/503',
-    path: '/503',
-    getParentRoute: () => rootRoute,
-  } as any)
-  .lazy(() => import('./routes/(errors)/503.lazy').then((d) => d.Route))
 
 const errors500LazyRoute = errors500LazyImport
   .update({
@@ -97,13 +88,6 @@ declare module '@tanstack/react-router' {
       path: '/500'
       fullPath: '/500'
       preLoaderRoute: typeof errors500LazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/(errors)/503': {
-      id: '/(errors)/503'
-      path: '/503'
-      fullPath: '/503'
-      preLoaderRoute: typeof errors503LazyImport
       parentRoute: typeof rootRoute
     }
     '/__guest/': {
@@ -160,7 +144,6 @@ const guestRouteRouteWithChildren = guestRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '': typeof guestRouteRouteWithChildren
   '/500': typeof errors500LazyRoute
-  '/503': typeof errors503LazyRoute
   '/': typeof guestIndexRoute
   '/about': typeof guestAboutIndexLazyRoute
   '/contact': typeof guestContactIndexLazyRoute
@@ -169,7 +152,6 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/500': typeof errors500LazyRoute
-  '/503': typeof errors503LazyRoute
   '/': typeof guestIndexRoute
   '/about': typeof guestAboutIndexLazyRoute
   '/contact': typeof guestContactIndexLazyRoute
@@ -180,7 +162,6 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/__guest': typeof guestRouteRouteWithChildren
   '/(errors)/500': typeof errors500LazyRoute
-  '/(errors)/503': typeof errors503LazyRoute
   '/__guest/': typeof guestIndexRoute
   '/__guest/about/': typeof guestAboutIndexLazyRoute
   '/__guest/contact/': typeof guestContactIndexLazyRoute
@@ -189,14 +170,13 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/500' | '/503' | '/' | '/about' | '/contact' | '/projects'
+  fullPaths: '' | '/500' | '/' | '/about' | '/contact' | '/projects'
   fileRoutesByTo: FileRoutesByTo
-  to: '/500' | '/503' | '/' | '/about' | '/contact' | '/projects'
+  to: '/500' | '/' | '/about' | '/contact' | '/projects'
   id:
     | '__root__'
     | '/__guest'
     | '/(errors)/500'
-    | '/(errors)/503'
     | '/__guest/'
     | '/__guest/about/'
     | '/__guest/contact/'
@@ -207,13 +187,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   guestRouteRoute: typeof guestRouteRouteWithChildren
   errors500LazyRoute: typeof errors500LazyRoute
-  errors503LazyRoute: typeof errors503LazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   guestRouteRoute: guestRouteRouteWithChildren,
   errors500LazyRoute: errors500LazyRoute,
-  errors503LazyRoute: errors503LazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -227,8 +205,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/__guest",
-        "/(errors)/500",
-        "/(errors)/503"
+        "/(errors)/500"
       ]
     },
     "/__guest": {
@@ -242,9 +219,6 @@ export const routeTree = rootRoute
     },
     "/(errors)/500": {
       "filePath": "(errors)/500.lazy.tsx"
-    },
-    "/(errors)/503": {
-      "filePath": "(errors)/503.lazy.tsx"
     },
     "/__guest/": {
       "filePath": "__guest/index.tsx",
