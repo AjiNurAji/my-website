@@ -19,6 +19,7 @@ import { Route as guestIndexImport } from './routes/__guest/index'
 // Create Virtual Routes
 
 const errors500LazyImport = createFileRoute('/(errors)/500')()
+const guestTaskIndexLazyImport = createFileRoute('/__guest/task/')()
 const guestProjectsIndexLazyImport = createFileRoute('/__guest/projects/')()
 const guestContactIndexLazyImport = createFileRoute('/__guest/contact/')()
 const guestAboutIndexLazyImport = createFileRoute('/__guest/about/')()
@@ -43,6 +44,14 @@ const errors500LazyRoute = errors500LazyImport
     getParentRoute: () => rootRoute,
   } as any)
   .lazy(() => import('./routes/(errors)/500.lazy').then((d) => d.Route))
+
+const guestTaskIndexLazyRoute = guestTaskIndexLazyImport
+  .update({
+    id: '/task/',
+    path: '/task/',
+    getParentRoute: () => guestRouteRoute,
+  } as any)
+  .lazy(() => import('./routes/__guest/task/index.lazy').then((d) => d.Route))
 
 const guestProjectsIndexLazyRoute = guestProjectsIndexLazyImport
   .update({
@@ -118,6 +127,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof guestProjectsIndexLazyImport
       parentRoute: typeof guestRouteImport
     }
+    '/__guest/task/': {
+      id: '/__guest/task/'
+      path: '/task'
+      fullPath: '/task'
+      preLoaderRoute: typeof guestTaskIndexLazyImport
+      parentRoute: typeof guestRouteImport
+    }
   }
 }
 
@@ -128,6 +144,7 @@ interface guestRouteRouteChildren {
   guestAboutIndexLazyRoute: typeof guestAboutIndexLazyRoute
   guestContactIndexLazyRoute: typeof guestContactIndexLazyRoute
   guestProjectsIndexLazyRoute: typeof guestProjectsIndexLazyRoute
+  guestTaskIndexLazyRoute: typeof guestTaskIndexLazyRoute
 }
 
 const guestRouteRouteChildren: guestRouteRouteChildren = {
@@ -135,6 +152,7 @@ const guestRouteRouteChildren: guestRouteRouteChildren = {
   guestAboutIndexLazyRoute: guestAboutIndexLazyRoute,
   guestContactIndexLazyRoute: guestContactIndexLazyRoute,
   guestProjectsIndexLazyRoute: guestProjectsIndexLazyRoute,
+  guestTaskIndexLazyRoute: guestTaskIndexLazyRoute,
 }
 
 const guestRouteRouteWithChildren = guestRouteRoute._addFileChildren(
@@ -148,6 +166,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof guestAboutIndexLazyRoute
   '/contact': typeof guestContactIndexLazyRoute
   '/projects': typeof guestProjectsIndexLazyRoute
+  '/task': typeof guestTaskIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
@@ -156,6 +175,7 @@ export interface FileRoutesByTo {
   '/about': typeof guestAboutIndexLazyRoute
   '/contact': typeof guestContactIndexLazyRoute
   '/projects': typeof guestProjectsIndexLazyRoute
+  '/task': typeof guestTaskIndexLazyRoute
 }
 
 export interface FileRoutesById {
@@ -166,13 +186,14 @@ export interface FileRoutesById {
   '/__guest/about/': typeof guestAboutIndexLazyRoute
   '/__guest/contact/': typeof guestContactIndexLazyRoute
   '/__guest/projects/': typeof guestProjectsIndexLazyRoute
+  '/__guest/task/': typeof guestTaskIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/500' | '/' | '/about' | '/contact' | '/projects'
+  fullPaths: '' | '/500' | '/' | '/about' | '/contact' | '/projects' | '/task'
   fileRoutesByTo: FileRoutesByTo
-  to: '/500' | '/' | '/about' | '/contact' | '/projects'
+  to: '/500' | '/' | '/about' | '/contact' | '/projects' | '/task'
   id:
     | '__root__'
     | '/__guest'
@@ -181,6 +202,7 @@ export interface FileRouteTypes {
     | '/__guest/about/'
     | '/__guest/contact/'
     | '/__guest/projects/'
+    | '/__guest/task/'
   fileRoutesById: FileRoutesById
 }
 
@@ -214,7 +236,8 @@ export const routeTree = rootRoute
         "/__guest/",
         "/__guest/about/",
         "/__guest/contact/",
-        "/__guest/projects/"
+        "/__guest/projects/",
+        "/__guest/task/"
       ]
     },
     "/(errors)/500": {
@@ -234,6 +257,10 @@ export const routeTree = rootRoute
     },
     "/__guest/projects/": {
       "filePath": "__guest/projects/index.lazy.tsx",
+      "parent": "/__guest"
+    },
+    "/__guest/task/": {
+      "filePath": "__guest/task/index.lazy.tsx",
       "parent": "/__guest"
     }
   }
